@@ -1,0 +1,5 @@
+SELECT wording,(coef/4)*100 AS coefficient FROM matter;
+
+
+
+SELECT SUM(coef) AS sum_of_coefficients FROM matter

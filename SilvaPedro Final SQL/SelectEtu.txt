@@ -1,0 +1,17 @@
+SELECT * FROM student;
+
+
+SELECT * FROM student
+ORDER BY name DESC;
+
+
+SELECT name,firstname FROM student
+WHERE city = 'Lyon';
+
+
+SELECT name,firstname,city FROM student
+WHERE city ILIKE '%LL%';
+
+
+SELECT firstname FROM student
+WHERE name IN ('Dupont','Durand','Martin');

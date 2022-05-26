@@ -1,0 +1,68 @@
+SELECT COUNT(*) FROM notation; --number of tests made by students
+
+
+SELECT score,name,firstname FROM notation
+INNER JOIN student ON
+notation.numstud = student.numstud;
+
+
+SELECT score,name,firstname,wording FROM notation
+INNER JOIN student ON
+notation.numstud = student.numstud
+INNER JOIN test ON
+notation.numtest = test.numtest
+INNER JOIN matter ON
+test.codemat = matter.codemat;
+
+
+SELECT score FROM notation
+WHERE score >= 10;
+
+
+SELECT score,name,firstname FROM notation
+INNER JOIN student ON
+notation.numstud = student.numstud
+WHERE score =20;
+
+
+SELECT ROUND(AVG(score),2),name,firstname FROM notation
+INNER JOIN student ON
+notation.numstud = student.numstud
+GROUP BY name,firstname
+ORDER BY name,firstname;
+
+
+SELECT * FROM notation
+INNER JOIN test ON
+notation.numtest = test.numtest
+WHERE testdate >= '2014-01-01' AND
+testdate <= '2014-06-30';
+
+
+SELECT notation.numtest,testdate,place,wording FROM notation
+INNER JOIN test ON
+notation.numtest = test.numtest
+INNER JOIN matter ON
+test.codemat = matter.codemat;
+
+
+SELECT name,firstname FROM notation, ROUND(AVG(score),2) AS average
+INNER JOIN student ON
+notation.numstud = student.numstud
+GROUP BY name,firstname
+ORDER BY AVG(score) DESC;
+
+
+SELECT codemat,ROUND(AVG(score),2) AS average FROM notation
+INNER JOIN test ON
+notation.numtest = test.numtest
+WHERE codemat IN
+	(SELECT codemat FROM test 
+	GROUP BY codemat
+	HAVING COUNT(numtest) > 1)
+GROUP BY codemat;
+
+
+SELECT numtest,ROUND(AVG(score),2) FROM notation
+GROUP BY numtest
+HAVING COUNT(numstud) < 6;
